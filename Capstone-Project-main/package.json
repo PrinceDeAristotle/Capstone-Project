@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "node ./node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node ./node_modules/tsx/dist/cli.mjs watch server/_core/index.js",
     "build": "vite build && esbuild server/_core/index.js --platform=node --packages=external --bundle --format=esm --outdir=dist",

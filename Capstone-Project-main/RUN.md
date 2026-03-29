@@ -42,3 +42,16 @@ If the app seems stuck on loading, wait up to 8 seconds; then the same sign-in m
 - Run the terminal from this project folder (where `package.json` is).
 - If you see `cross-env` not found, run `pnpm install` again.
 - On Windows, avoid running the terminal as Administrator.
+
+## Vercel (static frontend)
+
+The repo includes [vercel.json](vercel.json) so you can deploy the **Vite client** build (`dist/public`) to Vercel: install/build commands, `outputDirectory`, and SPA rewrites for client-side routes.
+
+**Important:** Vercel serves the **static UI** only. This app’s **Express API**, **tRPC** (`/api/trpc`), **Socket.io**, and databases still need a **separate long-running host** (e.g. Railway, Render, Fly.io, or a VPS) with `pnpm start` and your `.env`.
+
+For a **split** setup (static site on Vercel + API elsewhere), point the browser at your backend:
+
+1. Set **`VITE_API_BASE`** in Vercel to your API origin (e.g. `https://api.yourapp.com`) **at build time** if you wire the client to use it for tRPC (see `client/src/main.jsx` — today the tRPC URL is relative; you may need `${import.meta.env.VITE_API_BASE ?? ""}/api/trpc`).
+2. Allow your **Vercel domain** in the backend **CORS** configuration.
+
+If the Git repository nests this app in a subfolder, set **Root Directory** in the Vercel project to the folder that contains `package.json` and `vercel.json`.
